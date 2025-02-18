@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
         if (student.isPresent()) {
             return student;
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Student data does not exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Student data does not exists");
         }
     }
 
