@@ -9,6 +9,9 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+import java.util.List;
+
 @Data
 @Getter
 @Setter
@@ -23,6 +26,11 @@ public class Student {
     private String contactNumber;
     private double feesAmount;
     private String batchId;
+    private Date dateOfBirth;
+    private List<Gender> gender;
+
+    public List<Gender> getGender() { return gender; }
+    public void setGender(List<Gender> gender) { this.gender = gender; }
 
     public String getId() {
         return id;
@@ -68,7 +76,9 @@ public class Student {
         return batchId;
     }
 
-    public void setBatchId(String batchId) {
-        this.batchId = batchId;
-    }
+    public void setBatchId(String batchId) {this.batchId = batchId; }
+
+    public Date getDateOfBirth() { return dateOfBirth; }
+
+    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 }
