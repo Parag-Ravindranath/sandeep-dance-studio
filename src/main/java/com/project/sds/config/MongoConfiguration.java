@@ -1,10 +1,14 @@
 package com.project.sds.config;
 
+import com.google.common.base.Strings;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import org.bson.BsonReader;
 import org.bson.BsonWriter;
 import org.bson.codecs.Codec;
 import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +34,15 @@ public class MongoConfiguration {
     String mongoDefaultDb;
 
     @Bean
+    public MongoClient mongoClient() {
+        String environmentUrl = Strings.isNullOrEmpty(System.getenv("MONGODB_URI")) ? mongoUri
+                : System.getenv("MONGODB_URI");
+        return MongoClients.create(environmentUrl);
+    }
+
+    @Bean
     public MongoCustomConversions customConversions() {
-        List<Converter<?, ?>> converters = new ArrayList<>();
+        List<org.springframework.core.convert.converter.Converter<?, ?>> converters = new ArrayList<>();
         converters.add(new DateToZonedDateTimeConverter());
         converters.add(new ZonedDateTimeToDateConverter());
         return new MongoCustomConversions(converters);
@@ -57,7 +68,7 @@ public class MongoConfiguration {
     }
 
     class DateToZonedDateTimeConverter implements
-            Converter<Date, ZonedDateTime> {
+            org.springframework.core.convert.converter.Converter<Date, ZonedDateTime> {
 
         @Override
         public ZonedDateTime convert(Date source) {

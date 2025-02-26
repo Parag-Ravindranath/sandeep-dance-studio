@@ -1,0 +1,21 @@
+version: '3.5'
+services:
+    backend:
+        container_name: sds-backend
+        image: paragbhat2328/sandeep-dance-studio-backend:latest
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        restart: always
+        environment:
+            SPRING_DATA_MONGODB_URI: "mongodb+srv://paragbhat216:f5crxu8wNvCx9n3T@sandeepdancestudio.sp8fg.mongodb.net/?retryWrites=true&w=majority&appName=sandeepdancestudio"
+        ports:
+            - 8181:8181
+        networks:
+            lb-net:
+                aliases:
+                    - backend.docker
+
+networks:
+    lb-net:
+        name: stan-network
