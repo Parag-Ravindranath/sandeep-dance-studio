@@ -26,11 +26,13 @@ public class Student {
     private String contactNumber;
     private double feesAmount;
     private String batchId;
-    private Date dateOfBirth;
-    private List<Gender> gender;
+    private String dateOfBirth;
+    private Gender gender;
 
-    public List<Gender> getGender() { return gender; }
-    public void setGender(List<Gender> gender) { this.gender = gender; }
+
+
+    public Gender getGender() { return gender; }
+    public void setGender(Gender gender) { this.gender = gender; }
 
     public String getId() {
         return id;
@@ -78,7 +80,7 @@ public class Student {
 
     public void setBatchId(String batchId) {this.batchId = batchId; }
 
-    public Date getDateOfBirth() { return dateOfBirth; }
+    public String getDateOfBirth() { return dateOfBirth; }
 
-    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 }

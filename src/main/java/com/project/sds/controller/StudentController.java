@@ -2,6 +2,7 @@ package com.project.sds.controller;
 
 
 import com.project.sds.models.Student;
+import com.project.sds.models.StudentResponse;
 import com.project.sds.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +29,25 @@ public class StudentController {
         return ResponseEntity.ok(studentService.save(student));
     }
 
+
+    @PutMapping("/update/{studentId}")
+    public ResponseEntity<?> addStudent(@PathVariable String studentId, @RequestBody Student student) {
+        student.setId(studentId);
+        return ResponseEntity.ok(studentService.save(student));
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<Student>> getStudentList() {
         return ResponseEntity.ok(studentService.listAll());
     }
 
-    @GetMapping("/list/{batchId}")
-    public ResponseEntity<List<Student>> getStudentListByBatchId(@PathVariable String batchId) {
+   @GetMapping("/list/{batchId}")
+    public ResponseEntity<List<StudentResponse>> getStudentListByBatchId(@PathVariable String batchId) {
         return ResponseEntity.ok(studentService.listByBatch(batchId));
     }
 
-    @GetMapping("/print/{id}")
+
+    @GetMapping("/{id}")
     public ResponseEntity<?> getStudentDataByStudId(@PathVariable String id) {
         return ResponseEntity.ok(studentService.listById(id));
     }

@@ -1,7 +1,7 @@
 package com.project.sds.service;
 
 import com.project.sds.models.Student;
-import org.springframework.http.ResponseEntity;
+import com.project.sds.models.StudentResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ public interface StudentService {
 
     List<Student> listAll();
 
-    List<Student> listByBatch(String batchId);
+   List<StudentResponse> listByBatch(String batchId);
 
     Optional<Student> listById(String id);
 
