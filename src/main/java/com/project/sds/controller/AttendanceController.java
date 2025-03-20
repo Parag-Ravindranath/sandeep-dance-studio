@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 
@@ -47,23 +44,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/all/csv")
-    public void getAllAttendanceCsv(HttpServletResponse response) throws Exception {
-        File csvFile = attendanceService.generateAttendanceCsv();
-        response.setContentType("application/csv"); // Ensures proper download in all browsers
-        response.setHeader("Content-Disposition", "attachment; filename=attendance_report.csv");
-        response.setContentLength((int) csvFile.length());
-        response.setCharacterEncoding("UTF-8");
-
-        try (FileInputStream fis = new FileInputStream(csvFile);
-             OutputStream os = response.getOutputStream()) {
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                os.write(buffer, 0, bytesRead);
-            }
-            os.flush();
-
-        }
+    public ResponseEntity<byte[]> getAllAttendanceCsv(HttpServletResponse response) throws Exception {
+        return attendanceService.generateAttendanceCsv(response);
     }
 }

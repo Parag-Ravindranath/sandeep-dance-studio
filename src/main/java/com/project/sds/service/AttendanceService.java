@@ -3,8 +3,9 @@ package com.project.sds.service;
 
 import com.project.sds.models.Attendance;
 import com.project.sds.models.AttendanceResponse;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseEntity;
 
-import java.io.File;
 import java.util.List;
 
 public interface AttendanceService {
@@ -16,6 +17,6 @@ public interface AttendanceService {
 
     List<AttendanceResponse> getAttendanceByStudentId(String studentId);
 
-    File generateAttendanceCsv() throws Exception;
+    ResponseEntity<byte[]> generateAttendanceCsv(HttpServletResponse servletResponse) throws Exception;
 }
 
