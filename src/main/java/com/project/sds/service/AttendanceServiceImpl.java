@@ -50,7 +50,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public Attendance save(Attendance attendance) {
-        attendance.setAttendedDate(formatDate(ZonedDateTime.now()));
+        attendance.setAttendedDate(attendance.getAttendedDate());
         return attendanceRepository.save(attendance);
     }
 
@@ -78,7 +78,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         return attendanceList.stream().map(attendance -> {
             Optional<Student> student = studentRepository.findById(attendance.getStudentId());
             Optional<Batch> batch = batchRepository.findById(student.get().getBatchId());
-            Optional<Fees> fees = feesRepository.findByStudentId(student.get().getId());
 
             return student.map(s -> new AttendanceResponse(
                     attendance.getStudentId(),
@@ -87,7 +86,7 @@ public class AttendanceServiceImpl implements AttendanceService {
                     student.get().getBatchId(),
                     batch.get().getName(),
                     student.get().getFeesAmount(),
-                    fees.map(Fees::getPaidMonth).orElse(null)
+                    null
             ));
         }).filter(obj -> true).collect(Collectors.toList());
     }
